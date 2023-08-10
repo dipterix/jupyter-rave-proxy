@@ -56,7 +56,7 @@ def setup_rave():
         return [
             'R',
             '-e',
-            f'rave::start_rave2(port={ port })'
+            f'rave::start_rave2(port={ port }, launch.browser = FALSE, as_job = FALSE)'
         ]
 
     def _get_timeout(default=150000):

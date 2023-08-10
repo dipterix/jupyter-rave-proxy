@@ -14,10 +14,10 @@ setuptools.setup(
     ],
     entry_points={
         'jupyter_serverproxy_servers': [
-            'rstudio = jupyter_rave_proxy:setup_rave'
+            'rave = jupyter_rave_proxy:setup_rave'
         ]
     },
     package_data={
-        'jupyter_rave_proxy': ['icons/rstudio.svg'],
+        'jupyter_rave_proxy': ['icons/icon_128x128.png'],
     },
 )
