@@ -10,7 +10,7 @@ from urllib.parse import urlparse, urlunparse
 
 def get_icon_path():
     return os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'icons', 'icon_128x128.png'
+        os.path.dirname(os.path.abspath(__file__)), 'icons', 'rave.png'
     )
 
 def rewrite_netloc(response, request):

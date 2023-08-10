@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="jupyter-rave-proxy",
-    version='0.0.2',
+    version='0.0.3',
     url="https://github.com/dipterix/jupyter-rave-proxy",
     author="Zhengjia Wang",
     description="Jupyter extension to proxy RAVE",
@@ -18,6 +18,6 @@ setuptools.setup(
         ]
     },
     package_data={
-        'jupyter_rave_proxy': ['icons/icon_128x128.png'],
+        'jupyter_rave_proxy': ['icons/rave.svg'],
     },
 )
