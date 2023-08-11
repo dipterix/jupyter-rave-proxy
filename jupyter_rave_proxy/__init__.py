@@ -5,13 +5,7 @@ import shutil
 import subprocess
 import tempfile
 import pwd
-from textwrap import dedent
 from urllib.parse import urlparse, urlunparse
-
-def get_icon_path():
-    return os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'icons', 'rave.svg'
-    )
 
 def rewrite_netloc(response, request):
     '''
@@ -25,14 +19,21 @@ def rewrite_netloc(response, request):
             if u.netloc != request.host:
                 response.headers[header] = urlunparse(u._replace(netloc=request.host))
 
-def get_system_user():
-    try:
-        user = pwd.getpwuid(os.getuid())[0]
-    except:
-        user = os.environ.get('NB_USER', getpass.getuser())
-    return(user)
 
 def setup_rave():
+    
+    def _get_icon_path():
+        return os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'icons', 'rave.svg'
+        )
+    
+    def _get_system_user():
+        try:
+            user = pwd.getpwuid(os.getuid())[0]
+        except:
+            user = os.environ.get('NB_USER', getpass.getuser())
+        return(user)
+    
     def _get_env(port):
         # Detect various environment variables rsession requires to run
         # Via rstudio's src/cpp/core/r_util/REnvironmentPosix.cpp
@@ -59,19 +60,24 @@ def setup_rave():
             f'rave::start_rave2(port={ port }, launch.browser = FALSE, as_job = FALSE)'
         ]
 
-    def _get_timeout(default=150000):
+    def _get_timeout(default=15):
         try:
             return float(os.getenv('RSESSION_TIMEOUT', default))
         except Exception:
             return default
 
     return {
-        'command': _get_cmd,
+        'command': [
+            'R',
+            '-e',
+            'rave::start_rave2(port={port},launch.browser=FALSE,as_job=FALSE,host="0.0.0.0")'
+        ],
         'timeout': _get_timeout(),
+        "new_browser_tab": True,
         'environment': _get_env,
         'rewrite_response': rewrite_netloc,
         'launcher_entry': {
-            'title': 'RAVE-iEEG',
-            'icon_path': get_icon_path()
+            'title': 'RAVE',
+            'icon_path': _get_icon_path()
         }
     }

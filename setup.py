@@ -2,12 +2,12 @@ import setuptools
 
 setuptools.setup(
     name="jupyter-rave-proxy",
-    version='0.0.4',
+    version='0.0.5',
     url="https://github.com/dipterix/jupyter-rave-proxy",
     author="Zhengjia Wang",
     description="Jupyter extension to proxy RAVE",
     packages=setuptools.find_packages(),
-	keywords=['RAVE', 'RAVE-iEEG'],
+	keywords=['RAVE', 'iEEG', 'YAEL'],
 	classifiers=['Framework :: Jupyter'],
     install_requires=[
         'jupyter-server-proxy>=3.2.2'
