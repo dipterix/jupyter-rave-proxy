@@ -54,10 +54,12 @@ def setup_rave():
         }
 
     def _get_cmd(port):
+        # https://github.com/jupyterhub/jupyter-server-proxy/pull/215
+        # Auto restarts when command errors out
         return [
             'R',
             '-e',
-            f'rave::start_rave2(port={ port }, launch.browser = FALSE, as_job = FALSE)'
+            f'rave::start_rave2(port={ port },launch.browser=FALSE,as_job=FALSE,host="0.0.0.0");stop("Exit")'
         ]
 
     def _get_timeout(default=15):
@@ -67,14 +69,11 @@ def setup_rave():
             return default
 
     return {
-        'command': [
-            'R',
-            '-e',
-            'rave::start_rave2(port={port},launch.browser=FALSE,as_job=FALSE,host="0.0.0.0")'
-        ],
+        'command': _get_cmd,
         'timeout': _get_timeout(),
         "new_browser_tab": True,
         'environment': _get_env,
+        'rewrite_response': rewrite_netloc,
         'launcher_entry': {
             'title': 'RAVE',
             'icon_path': _get_icon_path()
