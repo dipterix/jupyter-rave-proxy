@@ -75,7 +75,6 @@ def setup_rave():
         'timeout': _get_timeout(),
         "new_browser_tab": True,
         'environment': _get_env,
-        'rewrite_response': rewrite_netloc,
         'launcher_entry': {
             'title': 'RAVE',
             'icon_path': _get_icon_path()
